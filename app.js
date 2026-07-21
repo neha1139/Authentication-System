@@ -61,6 +61,47 @@ app.post("/register",(req,res)=>{
 
    
 
+   app.post("/login",(req,res)=>{
+      const{email,password}=req.body;
+      const findUserQuery=`SELECT *  FROM users WHERE email=? ;`
+      db.query(findUserQuery,[email],(err,result)=>{
+         if(err){
+           console.log(err);
+           return res.status(500).json({
+              success:false,
+              message:"Database Error"
+         });     
+         }
+         if(result.length===0){
+             return res.status(404).json({
+                success: false,
+                message: "User not found."
+              }); 
+         }
+         const hashedPassword=result[0].password;
+         bcrypt.compare(password,hashedPassword,(err,isMatch)=>{
+            if(err){
+               console.log(err);
+               return res.status(500).json({
+                  success:false,
+                  message:"Error while verifying password."
+               });
+            }
+            if(!isMatch){
+               return res.status(401).json({
+                  success:false,
+                  message:"Invalid email or password."
+               });
+            }
+            res.json({
+               success:true,
+               message:"Login successful."
+            })
+            
+         });
+      });
+   });
+
 
 app.listen(3000,()=>{
    console.log("Server is running on port 3000"); 

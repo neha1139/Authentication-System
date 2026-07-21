@@ -44,12 +44,14 @@ registerForm.addEventListener("submit",function(event){
             username,email,password
         })
     })
-    .then(response=>response.json())
-    .then(data=>{
-        console.log(data);
+    .then(async(response)=>{
+        const data=await response.json();
         alert(data.message);
+        if(response.ok){
+          window.location.href = "login.html";
+        }
     })
     .catch(error=>{
-        console.error("Fetch error",error);
+        console.log(error);
     });
 });
