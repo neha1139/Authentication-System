@@ -31,8 +31,6 @@ res.sendFile(path.join(__dirname,"public","index.html"));
 });
 
 app.post("/register",(req,res)=>{
-   
-   console.log(req.body);
    const{username,email,password}=req.body;
    const checkEmailQuery="SELECT * FROM users WHERE email=?";
    db.query(checkEmailQuery,[email],(err,result)=>{
@@ -69,7 +67,7 @@ app.post("/register",(req,res)=>{
       }
       res.json({
          success:true,
-         message:"User added successfully"
+         message:"Registration successful"
       });
    });
         });
@@ -81,7 +79,7 @@ app.post("/register",(req,res)=>{
 
    app.post("/login",(req,res)=>{
       const{email,password}=req.body;
-      const findUserQuery=`SELECT *  FROM users WHERE email=? ;`
+      const findUserQuery=`SELECT *  FROM users WHERE email=?`;
       db.query(findUserQuery,[email],(err,result)=>{
          if(err){
            console.log(err);
@@ -116,8 +114,6 @@ app.post("/register",(req,res)=>{
              id:result[0].id,
              username:result[0].username
             };
-            console.log(req.session);
-
              res.json({
                success:true,
                message:"Login successful."
@@ -132,10 +128,24 @@ app.post("/register",(req,res)=>{
    app.get("/dashboard",isAuthenticated,(req,res)=>{
            res.sendFile(path.join(__dirname,"public","dashboard.html"));
    });
-//    app.get("/check-session", (req, res) => {
-//     console.log(req.session);
-//     res.json(req.session);
-// });
+
+
+
+   app.post("/logout",(req,res)=>{
+     req.session.destroy(err=>{
+      if(err){
+            console.log(err);
+            return res.status(500).json({
+               success:false,
+               message:" Logout failed"
+            });
+      }
+      res.status(200).json({
+         success:true,
+         message:"Logout successful"
+      });
+     });
+   });
 
 
 
