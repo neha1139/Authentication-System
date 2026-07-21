@@ -7,7 +7,17 @@ body{
 
     width:100%;
     max-width:500px;
+    background:#fff;
+    border-radius:15px;
     margin-left: 30%;
+}
+
+.auth-box h2{
+
+    text-align:center;
+    margin-bottom:10px;
+    font-weight:bold;
+
 }
 
 .card{
@@ -27,6 +37,7 @@ body{
 .btn{
 
     transition:0.3s;
+    
 
 }
 
@@ -39,11 +50,15 @@ body{
 
     background:#0d6efd;
     color:white;
+  
 
 }
 
-.form-control{
+
+
+ .form-control{
 
     height:50px;
+    margin-bottom:20px;
 
 }
