@@ -6,6 +6,24 @@ const bcrypt=require("bcrypt");
 app.use(express.json());
 const path=require("path");
 app.use(express.static(path.join(__dirname,"public")));
+const session = require("express-session");
+
+app.use(session({
+   secret:"mySecretKey",
+   resave:false,
+   saveUninitialized:false
+}));
+
+function isAuthenticated(req,res,next){
+   if(req.session.user){
+      next();
+   }else{
+            return res.status(401).json({
+            success: false,
+            message: "Please login first."
+        });
+   }
+}
 
 
 app.get("/",(req,res)=>{
@@ -93,14 +111,32 @@ app.post("/register",(req,res)=>{
                   message:"Invalid email or password."
                });
             }
-            res.json({
+           
+            req.session.user={
+             id:result[0].id,
+             username:result[0].username
+            };
+            console.log(req.session);
+
+             res.json({
                success:true,
                message:"Login successful."
-            })
-            
+            });
          });
+         
       });
    });
+
+     
+
+   app.get("/dashboard",isAuthenticated,(req,res)=>{
+           res.sendFile(path.join(__dirname,"public","dashboard.html"));
+   });
+//    app.get("/check-session", (req, res) => {
+//     console.log(req.session);
+//     res.json(req.session);
+// });
+
 
 
 app.listen(3000,()=>{

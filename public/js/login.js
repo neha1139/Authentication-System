@@ -1,4 +1,4 @@
-const { json } = require("express");
+
 
 const loginForm=document.getElementById("loginForm");
 loginForm.addEventListener("submit",function(event){
@@ -32,7 +32,7 @@ fetch("/login",{
          const data=await response.json();
         alert(data.message);
         if(response.ok){
-            window.location.href="dashboard.html";
+            window.location.href="/dashboard";
         }
     })
     .catch(error=>{
