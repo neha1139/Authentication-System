@@ -131,6 +131,26 @@ app.post("/register",(req,res)=>{
 
 
 
+
+app.get("/user",isAuthenticated,(req,res)=>{
+    const userId=req.session.user.id;
+    const sql=`SELECT username, email
+          FROM users
+         WHERE id = ?`;
+
+        db.query(sql, [userId], (err, result) => {
+         if (err) {
+            console.log(err);
+            return res.status(500).json({
+            success: false,
+            message: "Failed to fetch details."
+        });
+    }
+     res.json(result[0]);
+});
+});
+
+
    app.post("/logout",(req,res)=>{
      req.session.destroy(err=>{
       if(err){
@@ -143,6 +163,7 @@ app.post("/register",(req,res)=>{
       res.status(200).json({
          success:true,
          message:"Logout successful"
+       
       });
      });
    });
