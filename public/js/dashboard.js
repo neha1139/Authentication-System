@@ -53,6 +53,24 @@ saveBtn.addEventListener("click",async function(){
 const username = document.getElementById("usernameInput").value;
 const email = document.getElementById("emailInput").value;
 
+if (username.trim() === "") {
+    alert("Username  cannot be empty.");
+    return;
+}
+
+if(email.trim()===""){
+   alert("Email cannot be empty");
+   return;
+}
+
+const emailPattern= /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ if(!emailPattern.test(email)){
+    alert("Please enter a valid email address.");
+    return;
+    }
+
+
+
 const response=await fetch("/profile",{
   method:"PUT",
   headers:{

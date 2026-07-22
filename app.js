@@ -33,6 +33,31 @@ res.sendFile(path.join(__dirname,"public","index.html"));
 app.post("/register",(req,res)=>{
    const{username,email,password}=req.body;
    const checkEmailQuery="SELECT * FROM users WHERE email=?";
+    if (username.trim() === "") {
+            return res.status(400).json({
+            success: false,
+            message: "Username cannot be empty."
+            });
+         }
+         if(email.trim()===""){
+         return res.status(400).json({
+         success: false,
+         message: "Email cannot be empty."
+            });
+          }
+         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+         if (!emailPattern.test(email)) {
+            return res.status(400).json({
+             success: false,
+            message: "Please enter a valid email address."
+            });
+         } 
+          if(password.trim()===""){
+            return res.status(400).json({
+            success: false,
+            message: "Password cannot be empty."
+            });
+         }
    db.query(checkEmailQuery,[email],(err,result)=>{
       if(err){
          console.log(err);
@@ -43,6 +68,7 @@ app.post("/register",(req,res)=>{
       }
       if(result.length>0){
          return res.status(400).json({
+            success:false,
              message: "Email already exists."
          });
       }
@@ -80,6 +106,25 @@ app.post("/register",(req,res)=>{
    app.post("/login",(req,res)=>{
       const{email,password}=req.body;
       const findUserQuery=`SELECT *  FROM users WHERE email=?`;
+         if(email.trim()===""){
+         return res.status(400).json({
+         success: false,
+         message: "Email cannot be empty."
+            });
+          }
+         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+         if (!emailPattern.test(email)) {
+            return res.status(400).json({
+             success: false,
+            message: "Please enter a valid email address."
+            });
+         } 
+         if(password.trim()===""){
+            return res.status(400).json({
+            success: false,
+            message: "Password cannot be empty."
+            });
+         }
       db.query(findUserQuery,[email],(err,result)=>{
          if(err){
            console.log(err);
@@ -172,6 +217,27 @@ app.get("/user",isAuthenticated,(req,res)=>{
    app.put("/profile",isAuthenticated,(req,res)=>{
       const userId=req.session.user.id;
       const {username,email}=req.body;
+         if (username.trim() === "") {
+            return res.status(400).json({
+            success: false,
+            message: "Username cannot be empty."
+            });
+         }
+         if(email.trim()===""){
+         return res.status(400).json({
+         success: false,
+         message: "Email cannot be empty."
+            });
+          }
+         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+         if (!emailPattern.test(email)) {
+            return res.status(400).json({
+             success: false,
+            message: "Please enter a valid email address."
+            });
+         } 
+
+
       const checkEmailQuery=`SELECT * FROM users
       WHERE email=? AND id!=?`;
       db.query(checkEmailQuery,[email,userId],(err,result)=>{
