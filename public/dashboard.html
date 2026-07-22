@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -18,39 +19,96 @@
     </div>
 
     <!-- Profile Card -->
-    <div class="card shadow-lg border-0 rounded-4 mb-4">
-         <div class="card-body p-4">
-          <h3 class="mb-4"> 👋 Welcome Back</h3>
+    <div class="card shadow-lg border-0 rounded-4">
+
+        <div class="card-body p-4">
+
+            <h3 class="mb-4">👋 Welcome Back</h3>
+
             <hr>
-            <div class="row mb-3">
+
+            <!-- Username -->
+            <div class="row align-items-center mb-4">
+
                 <div class="col-md-3">
                     <strong>Username</strong>
                 </div>
 
                 <div class="col-md-9">
-                    <span id="username">Loading...</span>
+
+                    <!-- View Mode -->
+                    <span id="usernameText">Loading...</span>
+
+                    <!-- Edit Mode -->
+                    <input
+                        type="text"
+                        id="usernameInput"
+                        class="form-control d-none">
+
                 </div>
+
             </div>
 
-            <div class="row mb-3">
+            <!-- Email -->
+            <div class="row align-items-center mb-4">
+
                 <div class="col-md-3">
                     <strong>Email</strong>
                 </div>
+
                 <div class="col-md-9">
-                    <span id="email">Loading...</span>
+
+                    <!-- View Mode -->
+                    <span id="emailText">Loading...</span>
+
+                    <!-- Edit Mode -->
+                    <input
+                        type="email"
+                        id="emailInput"
+                        class="form-control d-none">
+
                 </div>
+
             </div>
 
-              <div class="card-body text-center p-4">
-            <button
-                id="logoutBtn"
-                class="btn btn-danger px-5">
-                Logout
-            </button>
+            <hr>
+
+            <!-- Buttons -->
+            <div class="text-center">
+
+                <button
+                    id="editBtn"
+                    class="btn btn-primary me-2">
+                    Edit Profile
+                </button>
+
+                <button
+                    id="saveBtn"
+                    class="btn btn-success me-2 d-none">
+                    Save Changes
+                </button>
+
+                <button
+                    id="cancelBtn"
+                    class="btn btn-secondary me-2 d-none">
+                    Cancel
+                </button>
+
+                <button
+                    id="logoutBtn"
+                    class="btn btn-danger">
+                    Logout
+                </button>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
+
 <script src="js/dashboard.js"></script>
+
 </body>
 </html>

@@ -169,6 +169,52 @@ app.get("/user",isAuthenticated,(req,res)=>{
    });
 
 
+   app.put("/profile",isAuthenticated,(req,res)=>{
+      const userId=req.session.user.id;
+      const {username,email}=req.body;
+      const checkEmailQuery=`SELECT * FROM users
+      WHERE email=? AND id!=?`;
+      db.query(checkEmailQuery,[email,userId],(err,result)=>{
+         if(err){
+            console.log(err);
+            return res.status(500).json({
+               success:false,
+               message:"error occured"
+            })
+         }
+         if(result.length>0){
+           return res.status(400).json({
+           success: false,
+          message: "Email already exists"
+            });
+         }
+       
+         const updateProfileQuery =`UPDATE users 
+         SET username=?,email=?
+         WHERE id=?`
+         db.query(updateProfileQuery ,[username,email,userId],(err,result)=>{
+            if(err){
+               console.log(err);
+               return res.status(500).json({
+                  success:false,
+                  message:"Failed to update user"
+               });
+            }
+            req.session.user.username=username;
+            
+            return res.json({
+               success:true,
+               message:"User updated successfully"
+            });
+         });
+        
+        
+      });
+         });
+     
+   
+
+
 
 app.listen(3000,()=>{
    console.log("Server is running on port 3000"); 
