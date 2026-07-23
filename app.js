@@ -279,6 +279,96 @@ app.get("/user",isAuthenticated,(req,res)=>{
          });
      
    
+app.put("/change-password",isAuthenticated,(req,res)=>{
+const userId=req.session.user.id;
+const {currentPassword,newPassword,confirmPassword}=req.body;
+if(currentPassword.trim()===""){
+   return res.status(400).json({
+    success: false,
+    message: "Current password cannot be empty"
+});
+}
+if(newPassword.trim()===""){
+   return res.status(400).json({
+    success: false,
+    message: "Enter the new passsword"
+});
+}
+if(confirmPassword.trim()===""){
+   return res.status(400).json({
+    success: false,
+    message: "Enter the confirm password"
+});
+}
+if(newPassword!==confirmPassword){
+   return res.status(400).json({
+    success: false,
+    message: "Password does not match!"
+});
+}
+if(newPassword.length<8){
+   return res.status(400).json({
+    success: false,
+    message: "Password should be of minimum 8 characters"
+});
+}
+const checkPasswordQuery=`SELECT password FROM users WHERE id=?`;
+db.query(checkPasswordQuery,[userId],(err,result)=>{
+   if(err){
+      console.log(err);
+      return res.status(500).json({
+         success:false,
+         message:"Database error occured"
+      });
+   }
+   if(result.length==0){
+      return res.status(404).json({
+      success: false,
+      message: "User not found."
+});
+   }
+   bcrypt.compare(currentPassword,result[0].password,(err,isMatch)=>{
+  if(err){
+   console.log(err);
+   return res.status(500).json({
+      success:false,
+      message:"Error occured while verifying password"
+   });
+  }
+  if(!isMatch){
+   return res.status(401).json({
+    success: false,
+    message: "Current password is incorrect."
+});
+  }
+   bcrypt.hash(newPassword,10,(err,hashedPassword)=>{
+         if (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: "Error while hashing password."
+        });
+    }
+     const updatePasswordQuery=`UPDATE users 
+     SET password=? WHERE id=?`;
+     db.query(updatePasswordQuery,[hashedPassword,userId],(err,result)=>{
+        if(err){
+         console.log(err);
+         return res.status(500).json({
+            success:false,
+            message:"Failed to update password"
+         });
+        }
+       return res.json({
+       success: true,
+       message: "Password updated successfully."
+});  
+     });
+   });
+  
+   });
+});
+});
 
 
 

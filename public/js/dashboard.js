@@ -109,3 +109,74 @@ cancelBtn.addEventListener("click",function(){
    saveBtn.classList.add("d-none");
    cancelBtn.classList.add("d-none");  
 });
+
+
+const changePasswordBtn=document.getElementById("changePasswordBtn");
+const passwordSection=document.getElementById("passwordSection");
+const cancelPasswordBtn=document.getElementById("cancelPasswordBtn");
+const updatePasswordBtn = document.getElementById("updatePasswordBtn");
+
+changePasswordBtn.addEventListener("click",function(){
+passwordSection.classList.remove("d-none");
+changePasswordBtn.classList.add("d-none");
+});
+
+
+
+cancelPasswordBtn.addEventListener("click",function(){
+passwordSection.classList.add("d-none");
+changePasswordBtn.classList.remove("d-none");
+document.getElementById("currentPassword").value = "";
+document.getElementById("newPassword").value = "";
+document.getElementById("confirmPassword").value = "";
+});
+
+updatePasswordBtn.addEventListener("click",async function(){
+const currentPassword = document.getElementById("currentPassword").value;
+const newPassword = document.getElementById("newPassword").value;
+const confirmPassword = document.getElementById("confirmPassword").value;
+
+if(currentPassword.trim()===""){
+   alert("Current password cannot be empty");
+   return;
+}
+if(newPassword.trim()===""){
+  alert("Enter the password to change");
+  return;
+}
+if(confirmPassword.trim()===""){
+   alert("Enter the confirm password");
+   return;
+}
+if(newPassword!==confirmPassword){
+   alert("Password does not match! ");
+   return;
+}
+if(newPassword.length<8){
+   alert("Password cannot be les than 8 characters");
+   return;
+}
+
+const response=await fetch("/change-password",{
+   method:"PUT",
+   headers:{
+       "Content-Type": "application/json"
+   },
+   body:JSON.stringify({
+      currentPassword,
+    newPassword,
+    confirmPassword 
+   })
+});
+const data=await response.json();
+if(data.success){
+   alert(data.message);
+   document.getElementById("currentPassword").value = "";
+   document.getElementById("newPassword").value = "";
+   document.getElementById("confirmPassword").value = "";
+   passwordSection.classList.add("d-none");
+   changePasswordBtn.classList.remove("d-none");
+}else{
+   alert(data.message);
+}
+});
