@@ -63,6 +63,7 @@ Through this project, I gained practical experience with:
 
 ## Project Structure
 
+```text
 Authentication-System/
 │
 ├── database/
@@ -79,7 +80,7 @@ Authentication-System/
 ├── app.js
 ├── package.json
 └── README.md
-
+```
 
 ## 🚀 Installation
 
