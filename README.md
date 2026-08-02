@@ -1,75 +1,119 @@
-# Authentication System
+# 🔐 Authentication System
 
+A full-stack **Authentication System** built using **Node.js, Express.js, MySQL, HTML, CSS, Bootstrap, and JavaScript**.
 
-## Project Description
+This project demonstrates a secure authentication workflow where users can register, log in, manage their profiles, update passwords, and maintain authenticated sessions. Passwords are securely hashed using **bcrypt**, while user authentication is managed through **Express Session**.
 
-The Authentication System is a full-stack web application developed to implement secure user authentication and profile management.
+The project was developed to gain practical experience with backend development, authentication, session management, REST APIs, and secure user data handling.
 
-It allows users to register, log in securely, manage their profile information, update their password, and maintain authenticated sessions. Passwords are securely stored using bcrypt hashing, while user sessions are managed using Express Session.
+---
 
-This project was built to strengthen my understanding of backend development with Node.js, Express.js, MySQL, REST APIs, authentication, session management, and CRUD operations.
+## ✨ Features
 
+- 👤 User Registration
+- 🔑 Secure User Login
+- 🔒 Password Hashing using bcrypt
+- 🛡️ Session-based Authentication
+- 🚫 Protected Dashboard
+- 👤 View User Profile
+- ✏️ Edit Profile Information
+- 🔄 Change Password
+- ✅ Frontend Validation
+- ✅ Backend Validation
+- 📧 Duplicate Email Validation
+- 🚪 Secure Logout
 
+---
 
-## Features
-- User Registration
-- User Login
-- Secure Password Hashing using bcrypt
-- Session-based Authentication
-- Protected Dashboard
-- View User Profile
-- Edit Profile Information
-- Change Password
-- Frontend Validation
-- Backend Validation
-- Duplicate Email Validation
-- Logout Functionality
+## 🛠️ Tech Stack
 
-
-
-
-## Tech Stack
 ### Frontend
 - HTML5
 - CSS3
 - Bootstrap 5
 - JavaScript
+
 ### Backend
 - Node.js
 - Express.js
+
 ### Database
 - MySQL
+
 ### Authentication & Security
 - bcrypt
 - express-session
 
+---
 
+## 📚 What I Learned
 
-## Learning Outcomes
+Through this project, I gained hands-on experience with:
 
-Through this project, I gained practical experience with:
-
-- Building REST APIs using Express.js
-- MySQL database integration
+- Building RESTful APIs using Express.js
+- User Authentication & Authorization
+- Password Hashing with bcrypt
+- Session Management using Express Session
+- MySQL Database Integration
 - CRUD Operations
-- Password hashing with bcrypt
-- Session-based Authentication
-- Frontend and Backend Validation
 - Express Middleware
+- Frontend & Backend Validation
 - Fetch API
 - Project Structure and Code Organization
 
+---
 
+## 🚀 Installation
 
-## Project Structure
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/neha1139/Authentication-System.git
+```
+
+### 2. Navigate to the project folder
+
+```bash
+cd Authentication-System
+```
+
+### 3. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Configure MySQL
+
+- Create the required database.
+- Import the project tables.
+- Update your MySQL credentials in `database/connection.js`.
+
+### 5. Start the server
+
+```bash
+node app.js
+```
+
+> *(Use `node server.js` only if your entry file is actually named `server.js`. If it's `app.js`, use `node app.js`.)*
+
+### 6. Open your browser
+
+```
+http://localhost:3000
+```
+
+---
+
+## 📂 Project Structure
 
 ```text
-Authentication-System/
+Authentication-System
 │
-├── database/
+├── database
 │   └── connection.js
 │
-├── public/
+├── public
 │   ├── css/
 │   ├── js/
 │   ├── index.html
@@ -82,34 +126,15 @@ Authentication-System/
 └── README.md
 ```
 
-## 🚀 Installation
+---
 
-Clone the repository
 
-```bash
-git clone https://github.com/neha1139/Authentication-System.git
-```
 
-Navigate to the project
 
-```bash
-cd Authentication-System
-```
+## 🔮 Future Improvements
 
-Install dependencies
+- 🔐 JWT Authentication
+- 📩 Email Verification
+- 🔄 Forgot Password & Reset Password
+---
 
-```bash
-npm install
-```
-
-Start the server
-
-```bash
-node server.js
-```
-
-Open your browser
-
-```
-http://localhost:3000
-```
